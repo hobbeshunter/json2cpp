@@ -17,13 +17,20 @@ jobs:
       matrix:
         os:
           - ubuntu-22.04
+          - windows-2022
         compiler:
           - gcc-11
+          - msvc
         generator:
           - "Ninja Multi-Config"
         build_type:
           - Release
           - Debug
+        exclude:
+          - os: windows-2022
+            compiler: gcc-11
+          - os: ubuntu-22.04
+            compiler: msvc
 
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +49,6 @@ jobs:
           conan --version
           conan profile detect
           conan config install ci/conan2
-
 
       - name: Build
         run: |
