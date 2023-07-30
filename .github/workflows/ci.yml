@@ -37,6 +37,9 @@ jobs:
           ninja: true
           conan: true
 
+      - name: Conan version
+        run: conan --version
+
       - name: Build
         run: |
           conan build . -pr:h=default -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build=missing -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True
