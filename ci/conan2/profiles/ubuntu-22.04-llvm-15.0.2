@@ -9,9 +9,9 @@ build_type=Release
 [options]
 [tool_requires]
 [buildenv]
-CC=/usr/bin/clang-15
-CXX=/usr/bin/clang++-15
-LD=/usr/bin/lld-15
+CC=/home/runner/llvm/bin/clang
+CXX=/home/runner/llvm/bin/clang++
+LD=/home/runner/llvm/bin/lld
 libtool:LD=/usr/bin/ld
 [conf]
-tools.build:compiler_executables={"cpp": "/usr/bin/clang++-15", "c": "/usr/bin/clang-15"}
+tools.build:compiler_executables={"cpp": "/home/runner/llvm/bin/clang++", "c": "/home/runner/llvm/bin/clang"}
