@@ -55,7 +55,6 @@ class json2cppRecipe(ConanFile):
         self.requires("nlohmann_json/3.11.2", visible=False)
         self.requires("fmt/10.0.0", visible=False)
         self.requires("cli11/2.3.2", visible=False)
-        # self.requires("ftxui/4.1.1", visible=False)
 
     def build_requirements(self):
         self.test_requires("catch2/3.3.2")
