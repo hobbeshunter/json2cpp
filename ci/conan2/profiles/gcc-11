@@ -1,4 +1,4 @@
-settings]
+[settings]
 os=Linux
 arch=x86_64
 compiler=gcc
