@@ -1,0 +1,42 @@
+name: ci
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+jobs:
+  Test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os:
+          - ubuntu-22.04
+        compiler:
+          - gcc-11
+        generator:
+          - "Ninja Multi-Config"
+        build_type:
+          - Release
+          - Debug
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: ${{ matrix.compiler }}
+          vcvarsall: ${{ contains(matrix.os, 'windows') }}
+          cmake: true
+          ninja: true
+          conan: true
+
+      - name: Build
+        run: |
+          conan build . -pr:h=default -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build=missing -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True

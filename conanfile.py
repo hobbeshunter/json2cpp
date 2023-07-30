@@ -12,8 +12,8 @@ class json2cppRecipe(ConanFile):
 
     # Optional metadata
     license = "MIT"
-    author = "<Put your name here> <And your email here>"
-    url = "https://github.com/lefticus/json2cpp"
+    author = "Martin Wudenka Martin.Wudenka@gmx.de"
+    url = "https://github.com/hobbeshunter/json2cpp"
     description = "Compiles JSON into static constexpr C++ data structures with nlohmann::json API "
     topics = ("json", "constexpr")
 

@@ -18,6 +18,12 @@ See the [test](test) folder for examples for building resources, using the valij
 
 Also see the [test_package](test_package) for an example on how to use it with conan 2.
 
+The conan package can be found on my remote. This can be added with
+
+```shell
+conan remote add mwudenka https://conan2.wudenka.de
+```
+
 ## Development
 
 ### Install dependencies
