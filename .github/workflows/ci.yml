@@ -21,6 +21,7 @@ jobs:
         compiler:
           - gcc-11
           - msvc
+          - llvm-15.0.2
         generator:
           - "Ninja Multi-Config"
         build_type:

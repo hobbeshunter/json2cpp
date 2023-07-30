@@ -1,0 +1,17 @@
+[settings]
+os=Linux
+arch=x86_64
+compiler=clang
+compiler.version=15
+compiler.libcxx=libc++
+compiler.cppstd=20
+build_type=Release
+[options]
+[tool_requires]
+[buildenv]
+CC=/usr/bin/clang-15
+CXX=/usr/bin/clang++-15
+LD=/usr/bin/lld-15
+libtool:LD=/usr/bin/ld
+[conf]
+tools.build:compiler_executables={"cpp": "/usr/bin/clang++-15", "c": "/usr/bin/clang-15"}
