@@ -18,6 +18,7 @@ jobs:
         os:
           - ubuntu-22.04
           - windows-2022
+          - macos-10.15
         compiler:
           - gcc-11
           - msvc
@@ -31,6 +32,8 @@ jobs:
           - os: windows-2022
             compiler: gcc-11
           - os: ubuntu-22.04
+            compiler: msvc
+          - os: macos-10.15
             compiler: msvc
 
     steps:
