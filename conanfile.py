@@ -57,7 +57,7 @@ class json2cppRecipe(ConanFile):
         self.requires("cli11/2.3.2", visible=False)
 
     def build_requirements(self):
-        self.test_requires("catch2/3.3.2")
+        self.test_requires("catch2/3.4.0")
 
     def validate(self):
         check_min_cppstd(self, self._min_cppstd)
