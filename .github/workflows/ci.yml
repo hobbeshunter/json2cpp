@@ -53,4 +53,4 @@ jobs:
 
       - name: Build
         run: |
-          conan build . -pr:h=${{matrix.os}}-${{matrix.compiler}} -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build=missing --build=catch2 -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True
+          conan build . -pr:h=${{matrix.os}}-${{matrix.compiler}} -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build="*" -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True

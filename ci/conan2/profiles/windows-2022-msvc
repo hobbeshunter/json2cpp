@@ -7,4 +7,3 @@ compiler.runtime=dynamic
 compiler.runtime_type=Release
 compiler.version=193
 os=Windows
-catch2:compiler.cppstd=20
