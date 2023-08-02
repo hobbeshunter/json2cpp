@@ -428,8 +428,8 @@ template<typename CharType> struct basic_json
   {
     // I don't like this level of implicit conversions in the `get()` function,
     // but it's necessary for API compatibility with nlohmann::json
-    if constexpr (std::is_same_v<Type,
-                    std::uint64_t> || std::is_same_v<Type, std::int64_t> || std::is_same_v<Type, double>) {
+    if constexpr (std::is_same_v<Type, std::uint64_t> || std::is_same_v<Type, std::int64_t>
+                  || std::is_same_v<Type, double>) {
       if (data.is_uinteger()) {
         return Type(*data.get_if_uinteger());
       } else if (data.is_integer()) {
@@ -439,8 +439,8 @@ template<typename CharType> struct basic_json
       } else {
         throw std::runtime_error("Unexpected type: number requested");// + ss.str() );
       }
-    } else if constexpr (std::is_same_v<Type,
-                           std::basic_string_view<CharType>> || std::is_same_v<Type, std::basic_string<CharType>>) {
+    } else if constexpr (std::is_same_v<Type, std::basic_string_view<CharType>>
+                         || std::is_same_v<Type, std::basic_string<CharType>>) {
       if (data.is_string()) {
         return *data.get_if_string();
       } else {

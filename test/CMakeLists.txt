@@ -4,13 +4,13 @@ find_package(Catch2 CONFIG REQUIRED)
 find_package(ValiJSON CONFIG REQUIRED)
 include(Catch)
 
-
 set(BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/test_json")
 add_custom_command(
   DEPENDS json2cpp
   OUTPUT "${BASE_NAME}_impl.hpp" "${BASE_NAME}.hpp" "${BASE_NAME}.cpp"
   COMMAND json2cppexe "test_json" "${CMAKE_SOURCE_DIR}/examples/test.json" "${BASE_NAME}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
 
 add_executable(tests tests.cpp "${BASE_NAME}.cpp")
 target_include_directories(tests PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
@@ -30,7 +30,8 @@ catch_discover_tests(
   OUTPUT_PREFIX
   "unittests."
   OUTPUT_SUFFIX
-  .xml)
+  .xml
+)
 
 set(SCHEMA_BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/allof_integers_and_numbers.schema")
 add_custom_command(
@@ -38,7 +39,8 @@ add_custom_command(
   OUTPUT "${SCHEMA_BASE_NAME}_impl.hpp" "${SCHEMA_BASE_NAME}.hpp" "${SCHEMA_BASE_NAME}.cpp"
   COMMAND json2cppexe "allof_integers_and_numbers_schema"
           "${CMAKE_SOURCE_DIR}/examples/allof_integers_and_numbers.schema.json" "${SCHEMA_BASE_NAME}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
 
 set(INT_BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/array_integers_10_20_30_40")
 add_custom_command(
@@ -46,7 +48,8 @@ add_custom_command(
   OUTPUT "${INT_BASE_NAME}_impl.hpp" "${INT_BASE_NAME}.hpp" "${INT_BASE_NAME}.cpp"
   COMMAND json2cppexe "array_integers_10_20_30_40" "${CMAKE_SOURCE_DIR}/examples/array_integers_10_20_30_40.json"
           "${INT_BASE_NAME}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
 
 set(DOUBLE_BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/array_doubles_10_20_30_40")
 add_custom_command(
@@ -54,21 +57,13 @@ add_custom_command(
   OUTPUT "${DOUBLE_BASE_NAME}_impl.hpp" "${DOUBLE_BASE_NAME}.hpp" "${DOUBLE_BASE_NAME}.cpp"
   COMMAND json2cppexe "array_doubles_10_20_30_40" "${CMAKE_SOURCE_DIR}/examples/array_doubles_10_20_30_40.json"
           "${DOUBLE_BASE_NAME}"
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
 
-add_executable(
-  valijson_tests
-  valijson_tests.cpp
-  ${SCHEMA_BASE_NAME}.cpp
-  ${DOUBLE_BASE_NAME}.cpp
-  ${INT_BASE_NAME}.cpp)
+add_executable(valijson_tests valijson_tests.cpp ${SCHEMA_BASE_NAME}.cpp ${DOUBLE_BASE_NAME}.cpp ${INT_BASE_NAME}.cpp)
 target_include_directories(valijson_tests PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-target_link_libraries(valijson_tests
-  PRIVATE
-    json2cpp::libjson2cpp
-    Catch2::Catch2WithMain
-    ValiJSON::valijson)
+target_link_libraries(valijson_tests PRIVATE json2cpp::libjson2cpp Catch2::Catch2WithMain ValiJSON::valijson)
 
 # automatically discover tests that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
 # to whatever you want, or use different for different binaries
@@ -83,7 +78,8 @@ catch_discover_tests(
   OUTPUT_PREFIX
   "unittests."
   OUTPUT_SUFFIX
-  .xml)
+  .xml
+)
 
 # Add a file containing a set of constexpr tests
 add_executable(constexpr_tests constexpr_tests.cpp "${BASE_NAME}_impl.hpp")
@@ -102,7 +98,8 @@ catch_discover_tests(
   OUTPUT_PREFIX
   "constexpr."
   OUTPUT_SUFFIX
-  .xml)
+  .xml
+)
 
 # Disable the constexpr portion of the test, and build again this allows us to have an executable that we can debug when
 # things go wrong with the constexpr testing
@@ -122,7 +119,8 @@ catch_discover_tests(
   OUTPUT_PREFIX
   "relaxed_constexpr."
   OUTPUT_SUFFIX
-  .xml)
+  .xml
+)
 
 if(json2cpp_ENABLE_LARGE_TESTS)
   set(BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/schema")
@@ -130,7 +128,8 @@ if(json2cpp_ENABLE_LARGE_TESTS)
     DEPENDS json2cpp
     OUTPUT "${BASE_NAME}_impl.hpp" "${BASE_NAME}.hpp" "${BASE_NAME}.cpp"
     COMMAND json2cppexe "schema" "${CMAKE_SOURCE_DIR}/examples/Energy+.schema.epJSON" "${BASE_NAME}"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  )
 
   # Add a file containing a set of constexpr_schema tests
   add_executable(constexpr_schema_tests constexpr_schema_tests.cpp "${BASE_NAME}_impl.hpp")
@@ -155,10 +154,11 @@ if(json2cpp_ENABLE_LARGE_TESTS)
     OUTPUT_PREFIX
     "constexpr_schema."
     OUTPUT_SUFFIX
-    .xml)
+    .xml
+  )
 
-  # Disable the constexpr_schema portion of the test, and build again this allows us to have an executable that we can debug when
-  # things go wrong with the constexpr_schema testing
+  # Disable the constexpr_schema portion of the test, and build again this allows us to have an executable that we can
+  # debug when things go wrong with the constexpr_schema testing
   add_executable(relaxed_constexpr_schema_tests constexpr_schema_tests.cpp "${BASE_NAME}_impl.hpp")
   target_link_libraries(relaxed_constexpr_schema_tests PRIVATE json2cpp::libjson2cpp Catch2::Catch2WithMain)
   target_compile_definitions(relaxed_constexpr_schema_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
@@ -176,12 +176,13 @@ if(json2cpp_ENABLE_LARGE_TESTS)
     TEST_PREFIX
     "relaxed_constexpr_schema."
     REPORTER
-    XML 
+    XML
     OUTPUT_DIR
     .
     OUTPUT_PREFIX
     "relaxed_constexpr_schema."
     OUTPUT_SUFFIX
-    .xml)
+    .xml
+  )
 
 endif()
