@@ -9,6 +9,25 @@ on:
       - main
 
 jobs:
+  check_format:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: llvm-15.0.2
+
+      - name: Setup Cmakelang
+        run: pip3 install --user cmakelang==0.6.13
+
+      - name: Check Format
+        run: |
+          ./scripts/format-all.sh
+          (if [ -n "`git diff --name-only --diff-filter=M --ignore-submodules`" ]; then echo $'\n    Some files are not properly formatted. You can use "./scripts/format-all.sh".\n'; git diff --diff-filter=M; false; fi)
+
+
   build_and_test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -58,7 +77,7 @@ jobs:
         run: |
           conan build . -pr:h=${{matrix.os}}-${{matrix.compiler}} -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build="*" -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True
 
-  Deploy:
+  deploy:
     runs-on: ubuntu-22.04
     needs: build_and_test
 
