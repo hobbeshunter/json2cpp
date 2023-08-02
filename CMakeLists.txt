@@ -19,8 +19,8 @@ set_warnings()
 
 # add clang-tidy
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    include(static_analysis)
-    enable_clang_tidy()
+  include(static_analysis)
+  enable_clang_tidy()
 endif()
 
 add_subdirectory(src)
