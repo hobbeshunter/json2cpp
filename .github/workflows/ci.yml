@@ -18,6 +18,7 @@ jobs:
         uses: aminya/setup-cpp@v1
         with:
           compiler: llvm-15.0.2
+          clangtidy: 15.0.2
 
       - name: Setup Cmakelang
         run: pip3 install --user cmakelang==0.6.13
