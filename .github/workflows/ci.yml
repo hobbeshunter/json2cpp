@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  Test:
+  build_and_test:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -57,3 +57,37 @@ jobs:
       - name: Build
         run: |
           conan build . -pr:h=${{matrix.os}}-${{matrix.compiler}} -s:h build_type=${{matrix.build_type}} -pr:b=default -u --build="*" -c tools.cmake.cmaketoolchain:generator="${{matrix.generator}}" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True
+
+  Deploy:
+    runs-on: ubuntu-22.04
+    needs: build_and_test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: gcc-11
+          cmake: true
+          ninja: true
+          conan: 2.0.9
+
+      - name: Conan
+        run: |
+          conan --version
+          conan profile detect
+          conan config install ci/conan2
+
+      - name: Build
+        run: |
+          conan create . --user mwudenka --channel snapshot -pr:h=ubuntu-22.04-gcc-11 -s:h build_type=Release -pr:b=default -u --build="*" -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+
+      - name: Upload
+        env:
+          CONAN2_MWUDENKA: ${{ secrets.CONAN2_MWUDENKA }}
+        run: |
+          conan remote add mwudenka https://conan2.wudenka.de
+          conan remote login mwudenka mwudenka -p "$CONAN2_MWUDENKA"
+          conan upload json2cpp -r=mwudenka --only-recipe
+
