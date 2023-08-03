@@ -24,6 +24,11 @@ The conan package can be found on my remote. This can be added with
 conan remote add mwudenka https://conan2.wudenka.de
 ```
 
+To list the available versions run
+```shell
+conan search json2cpp -r=mwudenka
+```
+
 ## Development
 
 ### Install dependencies
