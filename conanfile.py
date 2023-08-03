@@ -35,6 +35,10 @@ class json2cppRecipe(ConanFile):
     def _build_large_tests(self):
         return self._build_tests and bool(self.conf.get("user.build:large_tests", default=False))
 
+    @property
+    def _build_fuzz_tests(self):
+        return self._build_tests and bool(self.conf.get("user.build:fuzz_tests", default=False))
+
     def set_version(self):
         content = load(
             self,
@@ -66,8 +70,9 @@ class json2cppRecipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
-        tc.variables["json2cpp_ENABLE_LARGE_TESTS"] = self._build_large_tests
-        # tc.variables["json2cpp_ENABLE_COVERAGE"] = "OFF"
+        tc.variables["JSON2CPP_ENABLE_LARGE_TESTS"] = self._build_large_tests
+        tc.variables["JSON2CPP_ENABLE_FUZZ_TESTS"] = self._build_fuzz_tests
+        # tc.variables["JSON2CPP_ENABLE_COVERAGE"] = "OFF"
         tc.generate()
 
     def build(self):

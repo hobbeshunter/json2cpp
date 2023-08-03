@@ -122,7 +122,10 @@ catch_discover_tests(
   .xml
 )
 
-if(json2cpp_ENABLE_LARGE_TESTS)
+option(${projectPrefix}ENABLE_LARGE_TESTS "Enable large tests" OFF)
+message(STATUS "${projectPrefix}ENABLE_LARGE_TESTS: ${${projectPrefix}ENABLE_LARGE_TESTS}")
+
+if(${projectPrefix}ENABLE_LARGE_TESTS)
   set(BASE_NAME "${CMAKE_CURRENT_BINARY_DIR}/schema")
   add_custom_command(
     DEPENDS json2cpp

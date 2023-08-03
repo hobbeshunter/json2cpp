@@ -13,6 +13,10 @@ endif()
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g") # cmake default: "-g"
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g") # cmake default: "-O2 -g -DNDEBUG"
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG") # cmake default: "-O3 -DNDEBUG"
+
 option(${projectPrefix}WITH_EXECUTABLE "Build the tool" ON)
 message(STATUS "${projectPrefix}WITH_EXECUTABLE: ${${projectPrefix}WITH_EXECUTABLE}")
 
