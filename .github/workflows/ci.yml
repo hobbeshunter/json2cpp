@@ -17,8 +17,8 @@ jobs:
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
         with:
-          compiler: llvm-16.0.0
-          clangtidy: 16.0.0
+          compiler: llvm-15.0.2
+          clangtidy: 15.0.2
 
       - name: Setup Cmakelang
         run: pip3 install --user cmakelang==0.6.13
@@ -42,7 +42,7 @@ jobs:
         compiler:
           - gcc-11
           - msvc
-          - llvm-16.0.0
+          - llvm-15.0.2
         generator:
           - "Ninja Multi-Config"
         build_type:
