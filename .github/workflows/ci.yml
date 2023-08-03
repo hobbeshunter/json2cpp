@@ -71,7 +71,7 @@ jobs:
       - name: Install libc++
         if: matrix.os == ubuntu-22.04 && matrix.compiler == 'llvm-15.0.2'
         run: |
-          sudo apt install ibc++-15-dev libc++abi-15-dev
+          apt install ibc++-15-dev libc++abi-15-dev
 
       - name: Conan
         run: |
