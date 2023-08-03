@@ -12,7 +12,7 @@ jobs:
   check_format:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
@@ -57,7 +57,7 @@ jobs:
             compiler: msvc
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
@@ -84,7 +84,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
