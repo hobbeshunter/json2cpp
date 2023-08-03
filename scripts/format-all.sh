@@ -46,7 +46,8 @@ if [ $MAJOR_VERSION_DETECTED -lt $MAJOR_VERSION_NEEDED ]; then
     exit 1
 fi
 
-find $CPP_FOLDER \(  -iname "*.?pp" -or -iname "*.h" \) -type f | xargs $CLANG_FORMAT_CMD -verbose -i
+find $CPP_FOLDER -type d -name "*build*" -prune -o \(  -iname "*.?pp" -or -iname "*.h" \) -print | \
+ xargs $CLANG_FORMAT_CMD -verbose -i
 
 
 ###################################################
@@ -59,4 +60,6 @@ fi
 
 CMAKE_FOLDER="${1:-$SCRIPT_DIR/../}"
 
-find $CMAKE_FOLDER \( -iname "*.cmake" -or -iname "CMakeLists.txt" \) -type f | xargs cmake-format -l=info -i --config-file=$SCRIPT_DIR/../cmake-format.py
+find $CMAKE_FOLDER -type d -name "*build*" -prune -o \( -iname "*.cmake" -or -iname "CMakeLists.txt" \) -print | \
+ xargs cmake-format -l=info -i --config-file=$SCRIPT_DIR/../cmake-format.py
+
