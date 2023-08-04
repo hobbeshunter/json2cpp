@@ -1,5 +1,7 @@
 # json2cpp
 
+[![ci](https://github.com/hobbeshunter/json2cpp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hobbeshunter/json2cpp/actions/workflows/ci.yml)
+
 This is a fork of json2cpp that replaces the build system with a [conan 2](https://conan.io/) based one.
 
 **json2cpp** compiles a json file into `static constexpr` C++20 data structures that can be used at compile time or runtime.
