@@ -46,7 +46,7 @@ Now there should be cmake presets ready for you to be used.
 ## Dependency Installation and Build all in one
 
 ```shell
-conan rem
+conan build . -pr:h=default -s:h build_type=Debug -pr:b=default -u --build=missing -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config" -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler']" -c user.build:tests=True -c user.build:large_tests=True
 ```
 
 ## Packaging
