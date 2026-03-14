@@ -21,7 +21,7 @@ class json2cppRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "include/*", "test/*", "examples/*", "cmake/*"
+    exports_sources = "CMakeLists.txt", "src/*", "include/*", "test/*", "examples/*", "cmake/*", "fuzz_test/*"
 
     @property
     def _min_cppstd(self):
@@ -70,8 +70,8 @@ class json2cppRecipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
-        tc.variables["JSON2CPP_ENABLE_LARGE_TESTS"] = self._build_large_tests
-        tc.variables["JSON2CPP_ENABLE_FUZZ_TESTS"] = self._build_fuzz_tests
+        tc.variables["JSON2CPP_ENABLE_LARGE_TESTS"] = bool(self._build_large_tests)
+        tc.variables["JSON2CPP_ENABLE_FUZZ_TESTS"] = bool(self._build_fuzz_tests)
         # tc.variables["JSON2CPP_ENABLE_COVERAGE"] = "OFF"
         tc.generate()
 
